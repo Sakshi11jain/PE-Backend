@@ -20,7 +20,11 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://prepedge.vercel.app/",
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true
+}));
 
 //faqData
 app.get('/api/faqs', (req, res) => {
