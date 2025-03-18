@@ -21,7 +21,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: "https://prepedge.vercel.app/",
+  origin: "https://prepedge.vercel.app",
   methods: "GET,POST,PUT,DELETE",
   credentials: true
 }));
