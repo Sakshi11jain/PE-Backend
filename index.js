@@ -4,12 +4,13 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const faqData = require('./faqData.json');
-const mcq = require('./mcq.json')
+const mcq = require('./mcq.json');
 
 // Import Routes
 const AuthRouter = require("./Routes/AuthRouter");
-const feedbackRoutes = require("./Routes/Feedback");
+const feedbackRoutes = require("./Routes/feedbackRoutes");
 const questionsRoutes = require("./Routes/questions");
+const adminRoutes = require("./Routes/AdminRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -20,11 +21,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors({
-  origin: "https://prepedge.vercel.app",
-  methods: "GET,POST,PUT,DELETE",
-  credentials: true
-}));
+app.use(cors());
 
 //faqData
 app.get('/api/faqs', (req, res) => {
@@ -42,8 +39,9 @@ app.get("/ping", (req, res) => {
   res.send("PONG");
 });
 app.use("/auth", AuthRouter);
-app.use("/api/feedback", feedbackRoutes);
+app.use("/api/feedbacks", feedbackRoutes);
 app.use("/api/questions", questionsRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Start Server
 app.listen(PORT, () => {
@@ -54,4 +52,3 @@ app.listen(PORT, () => {
 app.get('/api/mcq', (req, res) => {
   res.json(mcq);
 });
-
